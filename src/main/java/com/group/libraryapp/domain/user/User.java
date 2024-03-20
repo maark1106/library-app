@@ -1,12 +1,27 @@
 package com.group.libraryapp.domain.user;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id = null;
+
+    @Column(nullable = false, length = 20) // name varchar(20)
     private String name;
     private Integer age;
 
+    protected User() {
+    }
+
     public User(String name, Integer age) {
-        if(name == null){
+        if(name == null || name.isBlank()){
             throw new IllegalArgumentException(String.format("잘못된 name(%s)가 들어왔습니다", name));
         }
         this.name = name;
